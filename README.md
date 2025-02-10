@@ -10,6 +10,8 @@ This minimalist RegEx flavor allows basic RegEx features such as:
 - **greedyness** allows to match a given number of times a set of elements or more, this is declared by `{+n}` after the set of elements
 - '\\' is used to escape special characters, apart when it is in a range context, so `\\-x` or `x-\\` are valid
 
+The rule of thumb is to not put same set of elements side to side.
+
 ### Usage
 
 `regex_findr(std::string &searched, std::string &x)`
