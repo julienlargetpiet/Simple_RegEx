@@ -2,7 +2,7 @@
 
 ## First RegEx flavor
 
-This flavor allows basic RegEx features as the 
+This minimalist RegEx flavor allows basic RegEx features such as:
 
 - **or context** which is the set of elements that are inside `[]`, evaluates the expression from left to right 
 - **range elements** matches every elements that are between `x-y` acording to the ASCII table
