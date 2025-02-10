@@ -18,7 +18,7 @@ This flavor allows basic RegEx features as the
 
 ## Examples
 
-`
+```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[u{1}p{2}]{2}ii[a-em]";
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
@@ -29,16 +29,16 @@ std::cout << vec1[0] << "\n";
 std::cout << vec1[1] << "\n";
 std::cout << it2b->first << "\n";
 std::cout << it2b->second << "\n";
-`
+```
 
-`
+```
 11
 17
 1
 ppppiim
-`
+```
 
-`
+```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[u{1}p{2}]{+1}ii[a-em]";
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
@@ -49,16 +49,16 @@ std::cout << vec1[0] << "\n";
 std::cout << vec1[1] << "\n";
 std::cout << it2b->first << "\n";
 std::cout << it2b->second << "\n";
-`
+```
 
-`
+```
 11
 17
 1
 ppppiim
-`
+```
 
-`
+```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "e{+1}p{2}";
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
@@ -69,16 +69,16 @@ std::cout << vec1[0] << "\n";
 std::cout << vec1[1] << "\n";
 std::cout << it2b->first << "\n";
 std::cout << it2b->second << "\n";
-`
+```
 
-`
+```
 8
 12
 1
 eeepp
-`
+```
 
-`
+```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[a-ia-z]{+1}";
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
@@ -89,12 +89,12 @@ std::cout << vec1[0] << "\n";
 std::cout << vec1[1] << "\n";
 std::cout << it2b->first << "\n";
 std::cout << it2b->second << "\n";
-`
+```
 
-`
+```
 6
 10
 1
 eieee
-`
+```
 
