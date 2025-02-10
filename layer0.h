@@ -70,7 +70,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
   unsigned int temp_i;
   bool is_repetition = 0;
   bool alrd_zero = 0;
-  std::vector<unsigned int> sorted_v;
   unsigned int cur_idx;
   unsigned int bf_cnt_zero = 0;
   while (i < n & cnt < n2) {
