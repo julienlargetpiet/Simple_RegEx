@@ -8,6 +8,7 @@ This flavor allows basic RegEx features as the
 - **range elements** matches every elements that are between `x-y` acording to the ASCII table
 - **repetition** is the number of times a set of elements have to be matched, this is declared inside `{n}` after the set of elements
 - **greedyness** allows to match a given number of times a set of elements or more, this is declared by `{+n}` after the set of elements
+- '\\' is used to escape special characters, apart when it is in a range context, so `\\-x` or `x-\\` are valid
 
 ### Usage
 
