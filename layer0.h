@@ -40,7 +40,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
   unsigned int i = 0;
   unsigned int cnt = 0;
   unsigned int ref_cnt;
-  unsigned int ref_i;
   const unsigned int n = searched.length();
   const unsigned int n2 = x.length();
   bool agn;
