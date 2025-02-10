@@ -60,7 +60,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
   unsigned int bf_rep_val;
   bool greedy_state1 = 0;
   bool greedy_state2 = 0;
-  std::vector<unsigned int> ref_multiple_cnt = {};
   std::string cur_matched_str = "";
   std::string matched_str = "";
   std::string rtn_str;
