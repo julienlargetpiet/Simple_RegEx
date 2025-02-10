@@ -82,7 +82,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
         or_state = 1;
         i += 1;
         jump_i = i;
-        while (searched[jump_i] != ']') {
+        while (searched[jump_i] != ']' & searched[jump_i - 1] != '\\') {
           jump_i += 1;
         };
         jump_i2 = jump_i;
