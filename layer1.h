@@ -4,6 +4,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
   char cur_chr;
   unsigned int i = 0;
   unsigned int cnt = 0;
+  unsigned int pre_cnt2;
   unsigned int ref_cnt;
   unsigned int ref_i;
   const unsigned int n = searched.length();
@@ -254,39 +255,39 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
         };
         rep_val = 1;
       };
-      if (rep_val != 0 & ref_rep_val != 0) {
-        if (range_state) {
-          agn2 = int(x[cnt]) >= ref_int1 & int(x[cnt]) <= ref_int2;
-          if (agn2) {
-            for (temp_i = 0; temp_i + 1 < cur_matched_str.length(); ++temp_i) {
-              cur_matched_str[temp_i] = cur_matched_str[temp_i + 1];   
-            };
-            cur_matched_str[cur_matched_str.length() - 1] = x[cnt];
-            cnt += 1;
-            while (agn2 & cnt < n2) {
-              agn2 = int(x[cnt]) >= ref_int1 & int(x[cnt]) <= ref_int2;
-              if (agn2) {
-                for (temp_i = 0; temp_i + 1 < cur_matched_str.length(); ++temp_i) {
-                  cur_matched_str[temp_i] = cur_matched_str[temp_i + 1];   
-                };
-                cur_matched_str[cur_matched_str.length() - 1] = x[cnt];
-                cnt += 1;
-              };
-            };
+      pre_cnt2 = cnt;
+      if (range_state) {
+        agn2 = int(x[cnt]) >= ref_int1 & int(x[cnt]) <= ref_int2;
+        if (agn2) {
+          for (temp_i = 0; temp_i + 1 < cur_matched_str.length(); ++temp_i) {
+            cur_matched_str[temp_i] = cur_matched_str[temp_i + 1];   
           };
-        } else {
-          agn2 = int(x[cnt]) == ref_int1;
-          if (agn2) {
-            cnt += 1;
-            while (agn2 & cnt < n2) {
-              agn2 = int(x[cnt]) == ref_int1;
-              if (agn2) {
-                cnt += 1;
+          cur_matched_str[cur_matched_str.length() - 1] = x[cnt];
+          cnt += 1;
+          while (agn2 & cnt < n2) {
+            agn2 = int(x[cnt]) >= ref_int1 & int(x[cnt]) <= ref_int2;
+            if (agn2) {
+              for (temp_i = 0; temp_i + 1 < cur_matched_str.length(); ++temp_i) {
+                cur_matched_str[temp_i] = cur_matched_str[temp_i + 1];   
               };
+              cur_matched_str[cur_matched_str.length() - 1] = x[cnt];
+              cnt += 1;
             };
           };
         };
       } else {
+        agn2 = int(x[cnt]) == ref_int1;
+        if (agn2) {
+          cnt += 1;
+          while (agn2 & cnt < n2) {
+            agn2 = int(x[cnt]) == ref_int1;
+            if (agn2) {
+              cnt += 1;
+            };
+          };
+        };
+      };
+      if (rep_val == 0 & ref_rep_val == 0) {
         cur_found = 0;
       };
     } else {
@@ -295,6 +296,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
           cur_found = 0;
         } else {
           cur_found = 1;
+          pre_cnt2 = cnt;
           cur_matched_str = ""; 
         };
         if (i + 3 < n) {
@@ -315,6 +317,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
           } else {
             cur_found = 1;
             cur_matched_str = ""; 
+            pre_cnt2 = cnt;
           };
           i += 3;
         } else if (searched[i] == '{' & searched[i + 1] == '+' & searched[i + 2] == '0' & searched[i + 3] == '}') {
@@ -322,6 +325,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
             cur_found = 0;
           } else {
             cur_found = 1;
+            pre_cnt2 = cnt;
             cur_matched_str = ""; 
           };
           i += 4;
@@ -332,6 +336,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
             cur_found = 0;
           } else {
             cur_found = 1;
+            pre_cnt2 = cnt;
             cur_matched_str = ""; 
           };
           i += 3;
@@ -339,16 +344,20 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
       };
     };
     if (rep_val == 0 || ref_rep_val == 0 || cnt == n2 & alrd_zero) {
-      if (bf_cnt_zero + 1 < cnt) {
+      if (bf_cnt_zero + 1 < pre_cnt2) {
         alrd_zero = 1;
         ref_i = i;
-        while (bf_cnt_zero + 1 < cnt) {
+        while (bf_cnt_zero + 1 < pre_cnt2) {
           matched_str.push_back("");
           multiple_cnt.push_back(bf_cnt_zero);
           bf_cnt_zero += 1;
         };
+        if (pre_cnt2 == n2 & x[n2 - 1] != ref_int1) {
+          matched_str.push_back("");
+          multiple_cnt.push_back(bf_cnt_zero);
+        };
+        bf_cnt_zero = cnt;
       };
-      bf_cnt_zero = cnt;
     };
     if (or_state) {
       rep_val = 1;
@@ -370,7 +379,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
       } else {
         i = cur_ref_i; 
       };
-    } else if (cur_found) {
+    } else if (cur_found & cnt < n2) {
       multiple_cnt.push_back(cnt);
       matched_str.push_back(cur_matched_str);
       ref_i = i;
@@ -702,11 +711,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
       if (cur_found) {
         matched_str[idx_cnt] += cur_matched_str;
         i = jump_i + 1;
-        if (cur_matched_str != "") {
-          lst_cnt = cnt - 1;
-        } else {
-          lst_cnt = cnt;
-        };
+        lst_cnt = cnt - 1;
         or_state = 0;
         greedy_state1 = 0;
         is_repetition = 0;
@@ -741,11 +746,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
       };
     } else {
       matched_str[idx_cnt] += cur_matched_str;
-      if (cur_matched_str != "") {
-        lst_cnt = cnt - 1;
-      } else {
-        lst_cnt = cnt;
-      };
+      lst_cnt = cnt - 1;
       is_repetition = 0;
       rep_val = 1;
     };
