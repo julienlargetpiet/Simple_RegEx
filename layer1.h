@@ -256,9 +256,9 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
         rep_val = 1;
       };
       pre_cnt2 = cnt;
-      if (rep_val == 0 || ref_rep_val == 0) {
-        cur_found = 0;
-      };
+      //if (rep_val == 0 || ref_rep_val == 0) {
+      //  cur_found = 0;
+      //};
     } else {
       if (ref_rep_val == 0) {
         if (cur_found) {
@@ -388,7 +388,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
       } else {
         i = cur_ref_i; 
       };
-    } else if (cur_found & cnt < n2 & rep_val != 0 & ref_rep_val != 0) {
+    } else if (cur_found & rep_val != 0 & ref_rep_val != 0) {
       multiple_cnt.push_back(cnt);
       matched_str.push_back(cur_matched_str);
       ref_i = i;
