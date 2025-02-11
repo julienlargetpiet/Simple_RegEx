@@ -101,3 +101,23 @@ std::cout << it2b->second << "\n";
 eieee
 ```
 
+```
+std::string inpt_str = "ouppplchdcpdedmePp";
+std::string searched = "[mqp]{0}up{3}lchdy{+0}p{0}";
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
+std::vector<unsigned int> vec1 = it->first;
+std::map<bool, std::string>::iterator it2b = it->second.begin();
+std::cout << vec1[0] << "\n";
+std::cout << vec1[1] << "\n";
+std::cout << it2b->first << "\n";
+std::cout << it2b->second << "\n";
+```
+
+```
+1
+8
+1
+uppplchd
+```
+
