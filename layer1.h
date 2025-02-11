@@ -358,6 +358,9 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
           multiple_cnt.push_back(bf_cnt_zero);
         };
         bf_cnt_zero = cnt;
+        if (or_state) {
+          ref_i = jump_i + 1;
+        };
       };
     };
     if (or_state) {
@@ -441,9 +444,9 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
     return {{{{pre_cnt, lst_cnt}}, {{1, matched_str[0]}}}};
   };
   if (pre_matched_str[0] != "") {
-    lst_cnt = multiple_cnt[idx_cnt] - 1;
+    lst_cnt = multiple_cnt[0] - 1;
   } else {
-    lst_cnt = multiple_cnt[idx_cnt];
+    lst_cnt = multiple_cnt[0];
   };
   matched_str = pre_matched_str;
   ref_rep_val = 1;
