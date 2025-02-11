@@ -287,7 +287,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
           };
         };
       };
-      if (rep_val == 0 & ref_rep_val == 0) {
+      if (rep_val == 0 || ref_rep_val == 0) {
         cur_found = 0;
       };
     } else {
@@ -345,6 +345,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
     };
     if (rep_val == 0 || ref_rep_val == 0 || cnt == n2 & alrd_zero) {
       if (bf_cnt_zero + 1 < pre_cnt2) {
+        cur_found = 1;
         alrd_zero = 1;
         ref_i = i;
         while (bf_cnt_zero + 1 < pre_cnt2) {
