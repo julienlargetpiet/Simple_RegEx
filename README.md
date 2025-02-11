@@ -11,6 +11,7 @@ This minimalist RegEx flavor allows basic RegEx features such as:
 - '\\' is used to escape special characters, apart when it is in a range context, so `\\-x` or `x-\\` are valid
 
 The rule of thumb is to not put same set of elements side to side.
+Also, in **or context**, make sure to put the biggest set in first, after the second biggest... 
 
 ### Usage
 
