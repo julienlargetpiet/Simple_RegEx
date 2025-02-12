@@ -11,7 +11,10 @@ This minimalist RegEx flavor allows basic RegEx features such as:
 - '\\' is used to escape special characters, apart when it is in a range context, so `\\-x` or `x-\\` are valid
 
 The rule of thumb is to not put same set of elements side to side.
-Also, in **or context**, make sure to put the biggest set in first, after the second biggest... 
+
+In **or context**, make sure to put the biggest set in first, after the second biggest... 
+
+In **or context**, do not put set of elements that are not subset from one another and have commun elements. Convert them to multiple exactly different sets with no commun elements, or to exactly subset from one to the other according to your needs.
 
 ### Usage
 
