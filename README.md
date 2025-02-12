@@ -12,9 +12,7 @@ This minimalist RegEx flavor allows basic RegEx features such as:
 
 The rule of thumb is to not put same set of elements side to side.
 
-In **or context**, make sure to put the biggest set in first, after the second biggest... 
-
-In **or context**, do not put set of elements that are not subset from one another and have commun elements. Convert them to multiple exactly different sets with no commun elements, or to exactly subset from one to the other according to your needs.
+In **or context**, do not put set of elements that have commun elements. Convert them to multiple exactly different sets with no commun elements.
 
 ### Usage
 
