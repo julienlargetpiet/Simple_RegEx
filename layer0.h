@@ -35,6 +35,16 @@ template <typename T> std::vector<T> sort_ascout(const std::vector<T> &x) {
   return rtn;
 };
 
+//@T regex_findr2sub
+//@U std::map&lt;std::vector&lt;unsigned int&gt;, std::map&lt;bool, std::string&gt;&gt; regex_findr2sub(std::string &searched, std::string &x)
+//@X
+//@D This function is used by others more abstract functions. It performs the regex dialect, but only matches if the first characters contiguously respect the search string.
+//@A searched : is the search string
+//@A x : is the string to search in for patterns
+//@X
+//@U
+//@X
+
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub(std::string &searched, std::string &x) {
   char cur_chr;
   unsigned int i = 0;
@@ -370,6 +380,16 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
   return {{{pre_cnt, lst_cnt}, 
           {{cur_found, rtn_str}}}}; 
 };
+
+//@T regex_findr1sub
+//@U std::map&lt;std::vector&lt;unsigned int&gt;, std::map&lt;bool, std::string&gt;&gt; regex_findr1sub(std::string &searched, std::string &x)
+//@X
+//@D This function is used by others more abstract functions. It performs the regex dialect, but only returns the characters that respect the first condition of the search string.
+//@A searched : is the search string
+//@A x : is the string to search in for patterns
+//@X
+//@U
+//@X
 
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub(std::string &searched, std::string &x) {
   char cur_chr;
