@@ -723,6 +723,18 @@ int regex_findr_first_condition_idx(std::string searched) {
       cnt += 1;
     };
     cnt += 1;
+    if (cnt < n) {
+      if (searched[cnt] == '{') {
+        cnt += 1;
+        while (1) {
+          if (searched[cnt] == '}' & searched[cnt - 1] != '\\') {
+            break;
+          };
+          cnt += 1;
+        };
+        cnt += 1;
+      };
+    };
   } else if (3 < n) {
     if (searched[1] == '{') {
       if (searched[0] == '\\') {
