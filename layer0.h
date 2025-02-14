@@ -703,3 +703,51 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
   return {{{pre_cnt, lst_cnt}, 
           {{cur_found, cur_matched_str}}}}; 
 };
+
+//@T regex_findr_first_condition_idx
+//@U int regex_findr_first_condition_idx(std::string searched)
+//@X
+//@D Returns the index of the character where the second condition is sensed to begin. Used by more abstract functions.
+//@A searched : is the search string
+//@X
+//@E
+//@X
+
+int regex_findr_first_condition_idx(std::string searched) {
+  bool continue_ok = 0;
+  if (searched[0] == '[') {
+    cnt = 1;
+    while (searched[cnt] != ']') {
+      cnt += 1;
+    };
+    cnt += 1;
+  } else if (3 < n) {
+    if (searched[1] == '{') {
+      if (searched[0] == '\\') {
+        if (searched[2] == '{') {
+          cnt = 3;
+          continue_ok = 1;
+        };
+      } else {
+        continue_ok = 1;
+        cnt = 2;
+      };
+    };
+    if (continue_ok) {
+      while (1) {
+        if (searched[cnt] == '}' & searched[cnt - 1] != '\\') {
+          break;
+        };
+        cnt += 1;
+      };
+      cnt += 1;
+    } else {
+      cnt = 1;
+    };
+  } else {
+    cnt = 1;
+  };
+  return cnt;
+};
+
+
