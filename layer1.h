@@ -763,7 +763,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
 //@T regex_findr_bgn
 //@U std::map&lt;std::vector&lt;std::vector&lt;unsigned int&gt;&gt;, std::vector&lt;std::string&gt;&gt; regex_findr_bgn(std::string &searched, std::string &x)
 //@X
-//@D Returns where the string matches the first condition of the search string.
+//@D Returns where the string matches the first condition of the search string. Used by more abstract functions.
 //@A searched : is the search string
 //@A x : is the string to search in for patterns
 //@X
