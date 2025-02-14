@@ -959,7 +959,7 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
             ref_temp_cnt2 = temp_cnt2;
             ref_mult2 = int(searched[temp_cnt2]) - 48;
             temp_cnt2 += 1;
-            while (cur_searched[temp_cnt2] != '}') {
+            while (searched[temp_cnt2] != '}') {
               ref_mult2 *= 10;
               ref_mult2 += (int(searched[temp_cnt2]) - 48);
               temp_cnt2 += 1;
@@ -1079,7 +1079,7 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
             ref_temp_cnt2 = temp_cnt2;
             ref_mult2 = int(searched[temp_cnt2]) - 48;
             temp_cnt2 += 1;
-            while (cur_searched[temp_cnt2] != '}') {
+            while (searched[temp_cnt2] != '}') {
               ref_mult2 *= 10;
               ref_mult2 += (int(searched[temp_cnt2]) - 48);
               temp_cnt2 += 1;
