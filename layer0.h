@@ -715,6 +715,8 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
 
 int regex_findr_first_condition_idx(std::string searched) {
   bool continue_ok = 0;
+  int cnt;
+  const int n = searched.length();
   if (searched[0] == '[') {
     cnt = 1;
     while (searched[cnt] != ']') {
