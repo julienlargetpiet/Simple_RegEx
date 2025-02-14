@@ -863,9 +863,9 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
           cur_break_ptrn = "";
           if (par_content) {
             temp_cnt2 += 1;
+            cur_par = 1;
             if (searched[temp_cnt2] == '?') {
               temp_cnt2 += 1;
-              cur_par = 1;
               while (1) {
                 if (searched[temp_cnt2] == '}' & searched[temp_cnt2 - 1] != '\\') {
                   cur_par -= 1;
@@ -888,6 +888,18 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
                 for (temp_cnt2 = 0; temp_cnt2 < rtn_pre_cnt; ++temp_cnt2) {
                   cur_x.push_back(x[temp_cnt2]);
                 };
+              };
+            } else {
+              while (1) {
+                if (searched[temp_cnt2] == '}' & searched[temp_cnt2] != '\\') {
+                  cur_par -= 1;
+                  if (cur_par == 0) {
+                    break;
+                  };
+                } else if (searched[temp_cnt2] == '{' & searched[temp_cnt2] != '\\') {
+                  cur_par += 1;
+                };
+                temp_cnt2 += 1;
               };
             };
           };
