@@ -890,6 +890,7 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
                 };
               };
             } else {
+              cur_searched.push_back('{');
               while (1) {
                 if (searched[temp_cnt2] == '}' & searched[temp_cnt2] != '\\') {
                   cur_par -= 1;
@@ -899,8 +900,10 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
                 } else if (searched[temp_cnt2] == '{' & searched[temp_cnt2] != '\\') {
                   cur_par += 1;
                 };
+                cur_searched.push_back(searched[temp_cnt2]);
                 temp_cnt2 += 1;
               };
+              cur_searched.push_back('}');
             };
           };
           cur_hmn_idxv = {};
