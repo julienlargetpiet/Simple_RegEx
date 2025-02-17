@@ -136,7 +136,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
         };
         range_state = 1;
         ref_int2 = int(searched[i]);
-        std::cout << "ref_int1: " << char(ref_int1) << " ref_int2: " << char(ref_int2) << "\n";
         if (int(x[cnt]) >= ref_int1 & int(x[cnt]) <= ref_int2) {
           cur_found = 1;
         };
