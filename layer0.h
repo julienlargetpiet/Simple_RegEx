@@ -176,6 +176,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
       if (greedy_state2 & rep_val == 0) {
         rep_val = 1;
       };
+      bf_rep_val = rep_val;
       if (range_state & is_repetition & rep_val != 0 & ref_rep_val != 0) {
         agn = 1;
         rep_val *= ref_rep_val;
