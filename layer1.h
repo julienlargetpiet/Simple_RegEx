@@ -571,7 +571,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
           cur_found = 0;
         } else if (greedy_state1 || greedy_state2) {
           if (greedy_state1 & greedy_state2) {
-            cur_lmt = bf_rep_val + ref_rep_val;
+            cur_lmt = bf_rep_val * ref_rep_val;
           } else if (greedy_state1) {
             cur_lmt = bf_rep_val;
           } else if (greedy_state2) {
@@ -623,7 +623,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
           cur_found = 0;
         } else if (greedy_state1 || greedy_state2) {
           if (greedy_state1 & greedy_state2) {
-            cur_lmt = bf_rep_val + ref_rep_val;
+            cur_lmt = bf_rep_val * ref_rep_val;
           } else if (greedy_state1) {
             cur_lmt = bf_rep_val;
           } else if (greedy_state2) {
