@@ -771,7 +771,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr(std
 //@E
 //@X
 
-std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex_findr_bgn(std::string &searched, std::string &x) {
+std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex_findr_bgn(std::string searched, std::string x) {
   std::map<std::vector<unsigned int>, std::map<bool, std::string>> cur_mp;
   std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator cur_it;
   std::map<bool, std::string>::iterator rslt_mp;
