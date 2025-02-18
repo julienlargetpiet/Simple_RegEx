@@ -958,36 +958,14 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
           cur_searched = "";
           temp_cnt2 = conditions_idx_v[temp_cnt];
           while (temp_cnt2 < cur_lmt) {
-            if (searched[temp_cnt2] == '{' & searched[temp_cnt2] != '\\') {
-              par_content = 1;
-              break;
-            };
             cur_searched.push_back(searched[temp_cnt2]);
             temp_cnt2 += 1;
           };
-          if (par_content) {
-            cur_searched.push_back('{');
-            temp_cnt2 += 1;
-            if (searched[temp_cnt2] == '+') {
-              temp_cnt2 += 1;
-              cur_searched.push_back('+');
-            };
-            ref_temp_cnt2 = temp_cnt2;
-            ref_mult2 = int(searched[temp_cnt2]) - 48;
-            temp_cnt2 += 1;
-            while (searched[temp_cnt2] != '}') {
-              ref_mult2 *= 10;
-              ref_mult2 += (int(searched[temp_cnt2]) - 48);
-              temp_cnt2 += 1;
-            };
-            ref_mult2 *= ref_mult;
-            cur_searched += std::to_string(ref_mult2);
-            cur_searched.push_back('}');
-          } else {
-            cur_searched.push_back('{');
-            cur_searched += std::to_string(ref_mult);
-            cur_searched.push_back('}');
-          };
+          cur_searched.insert(0, 1, '[');
+          cur_searched.push_back(']');
+          cur_searched.push_back('{');
+          cur_searched += std::to_string(ref_mult);
+          cur_searched.push_back('}');
           cur_x = x;
           cur_hmn_idxv = {};
           is_found = 0;
@@ -1078,36 +1056,14 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
           cur_searched = "";
           temp_cnt2 = conditions_idx_v[temp_cnt];
           while (temp_cnt2 < cur_lmt) {
-            if (searched[temp_cnt2] == '{' & searched[temp_cnt2] != '\\') {
-              par_content = 1;
-              break;
-            };
             cur_searched.push_back(searched[temp_cnt2]);
             temp_cnt2 += 1;
           };
-          if (par_content) {
-            cur_searched.push_back('{');
-            temp_cnt2 += 1;
-            if (searched[temp_cnt2] == '+') {
-              temp_cnt2 += 1;
-              cur_searched.push_back('+');
-            };
-            ref_temp_cnt2 = temp_cnt2;
-            ref_mult2 = int(searched[temp_cnt2]) - 48;
-            temp_cnt2 += 1;
-            while (searched[temp_cnt2] != '}') {
-              ref_mult2 *= 10;
-              ref_mult2 += (int(searched[temp_cnt2]) - 48);
-              temp_cnt2 += 1;
-            };
-            ref_mult2 *= ref_mult;
-            cur_searched += std::to_string(ref_mult2);
-            cur_searched.push_back('}');
-          } else {
-            cur_searched.push_back('{');
-            cur_searched += std::to_string(ref_mult);
-            cur_searched.push_back('}');
-          };
+          cur_searched.insert(0, 1, '[');
+          cur_searched.push_back(']');
+          cur_searched.push_back('{');
+          cur_searched += std::to_string(ref_mult);
+          cur_searched.push_back('}');
           cur_x = x;
           cur_hmn_idxv = {};
           is_found = 0;
@@ -1305,3 +1261,5 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
   };
   return {{hmn_idxv, hmn_str_idxv}};
 };
+
+
