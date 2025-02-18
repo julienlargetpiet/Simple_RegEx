@@ -397,7 +397,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
   unsigned int cnt = 0;
   unsigned int ref_cnt;
   unsigned int bf_cnt2;
-  const unsigned int n = searched.length();
+  unsigned int n = searched.length();
   const unsigned int n2 = x.length();
   bool agn;
   bool agn2;
@@ -433,15 +433,18 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
       };
       cnt += 1;
     };
+    idx_cnt = cnt;
     cnt += 1;
     if (cnt < n) {
       if (searched[cnt] == '{') {
+        is_repetition = 1;
         cnt += 1;
         if (searched[cnt] == '+') {
           greedy_state1 = 1;
           cnt += 1;
         };
-        ref_rep_val = int(x[cnt]) - 48;
+        ref_rep_val = int(searched[cnt]) - 48;
+        cnt += 1;
         while (searched[cnt] != '}') {
           ref_rep_val *= 10;
           ref_rep_val += (int(searched[cnt]) - 48);
@@ -449,13 +452,16 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
         };
       };
     };
-    while (searched[searched.length() - 1] != ']') {
-      searched.pop_back();
+    while (searched[idx_cnt] != '}') {
+      searched.erase(searched.begin() + idx_cnt);
+      n -= 1;
     };
-    searched.pop_back();
+    searched.erase(searched.begin() + idx_cnt);
     searched.erase(searched.begin());
+    n -= 2;
   };
   cnt = 0;
+  idx_cnt = 0;
   while (cnt < n2) {
     greedy_state2 = 0;
     if (searched[i] == '\\') {
