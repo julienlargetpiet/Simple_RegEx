@@ -462,9 +462,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
     searched.erase(searched.begin());
     n -= 2;
   };
-  std::cout << "searched: " << searched << "\n";
-  std::cout << "n: " << n << "\n";
-  std::cout << "ref_rep_val: " << ref_rep_val << "\n";
   cnt = 0;
   while (cnt < n2) {
     greedy_state2 = 0;
@@ -500,7 +497,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
       };
     };
     cur_matched_str = x[cnt - 1];
-    std::cout << "cur_matched_str: " << cur_matched_str << " cnt: " << cnt << "\n";
     i += 1;
     if (cur_found & i < n) {
       if (searched[i] != '\\') {
@@ -694,7 +690,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
         if (cur_found & ref_rep_val > 1) {
           idx_cnt = 1;
           if (!range_state) {
-            std::cout << "ici\n";
             while (cur_found & cnt < n2 & idx_cnt < ref_rep_val) {
               cur_found = (ref_int1 == x[cnt]);
               cur_matched_str.push_back(x[cnt]);
