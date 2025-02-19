@@ -970,8 +970,6 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
           cur_hmn_idxv = {};
           is_found = 0;
           while (1) {
-            std::cout << "cur_x: " << cur_x << "\n";
-            std::cout << "cur_searched: " << cur_searched << "\n";
             cur_mp = regex_findr1sub(cur_searched, cur_x);
             cur_it = cur_mp.begin();
             rslt_mp = cur_it->second.begin();
@@ -979,9 +977,7 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::string>> regex
               is_found = 1;
               idx_v = cur_it->first;
               rtn_lst_cnt += idx_v[1];
-              std::cout << "rtn_lst_cnt: " << rtn_lst_cnt << "\n";
               cur_str = rslt_mp->second;
-              std::cout << "cur_str: " << cur_str << "\n";
               cur_hmn_idxv.push_back(rtn_lst_cnt);
             } else {
               break;
