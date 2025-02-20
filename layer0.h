@@ -35,6 +35,55 @@ template <typename T> std::vector<T> sort_ascout(const std::vector<T> &x) {
   return rtn;
 };
 
+//@I This minimalist RegEx flavor allows basic RegEx features such as:
+//@I 
+//@I - **or context** which is the set of elements that are inside `[]`, evaluates the expression from left to right 
+//@I - **range elements** matches every elements that are between `x-y` acording to the ASCII table
+//@I - **repetition** is the number of times a set of elements have to be matched, this is declared inside `{n}` after the set of elements
+//@I - **greedyness** allows to match a given number of times a set of elements or more, this is declared by `{+n}` after the set of elements
+//@I - '\\' is used to escape special characters, apart when it is in a range context, so `\\-x` or `x-\\` are valid
+//@I 
+//@I The rule of thumb is to not put same set of elements side to side as the first 2 conditions.
+//@I 
+//@I In **or context**, do not put set of elements that have commun elements. Convert them to multiple exactly different sets with no commun elements.
+
+//@T regex_findrmid
+//@U std::map&lt;std::vector&lt;int&gt;, std::map&lt;bool, std::string&gt;&gt; regex_findrmid(std::string searched, std::string x)
+//@X
+//@D ReGex dialect that handles break patterns declared as <code>{?pattern}</code>.
+//@A searched : is the searche string
+//@A x : is the string to search in
+//@X
+//@E std::string inpt_str = "uuppplchhdcpdedmepp";
+//@E std::string searched = "[u{1}]{2}p{3}[lpm]{?p{3}}chh{?mepp}d{?mepp}";
+//@E std::map&lt;std::vector&lt;int&gt;, std::map&lt;bool, std::string&gt;&gt; outmp = regex_findrmid(searched, inpt_str);
+//@E std::map&lt;std::vector&lt;int&gt;, std::map&lt;bool, std::string&gt;&gt;::iterator it = outmp.begin();
+//@E std::vector&lt;int&gt; vec1 = it-&gt;first;
+//@E std::map&lt;bool, std::string&gt;::iterator it2b = it-&gt;second.begin();
+//@E std::cout &lt;&lt; vec1[0] << "\n";
+//@E std::cout &lt;&lt; vec1[1] << "\n";
+//@E std::cout &lt;&lt; it2b->first << "\n";
+//@E std::cout &lt;&lt; it2b->second << "\n";
+//@E 0
+//@E 9
+//@E 1
+//@E "uuppplchhd"
+//@E inpt_str = "uouuupeieeeppppiimiooo";
+//@E searched = "[p]{4}i{?ooo}i[a-zm]";
+//@E outmp = regex_findrmid(searched, x);
+//@E it = outmp.begin();
+//@E vec1 = it-&gt;first;
+//@E it2b = it-&gt;second.begin();
+//@E vec1[0] << "\n";
+//@E vec1[1] << "\n";
+//@E it2b->first << "\n";
+//@E it2b->second << "\n";
+//@E 11
+//@E 17
+//@E 1
+//@E "ppppiim"
+//@X
+
 //@T regex_findr2sub
 //@U std::map&lt;std::vector&lt;unsigned int&gt;, std::map&lt;bool, std::string&gt;&gt; regex_findr2sub(std::string &searched, std::string &x)
 //@X
