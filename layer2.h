@@ -37,7 +37,7 @@
 //@E "ppppiim"
 //@X
 
-std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::string searched, std::string x) {
+std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::string &searched, std::string &x) {
   std::string cur_searched = "";
   std::string cur_cur_searched = "";
   std::string cur_x = x;
