@@ -782,54 +782,52 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
 //@X
 
 int regex_findr_first_condition_idx(std::string searched) {
-  bool continue_ok = 0;
-  int cnt;
-  const int n = searched.length();
-  if (searched[0] == '[') {
-    cnt = 1;
+  const unsigned int n = searched.length();
+  unsigned int cnt = 0;
+  unsigned int cur_par;
+  if (searched[cnt] == '[') {
     while (searched[cnt] != ']') {
       cnt += 1;
     };
     cnt += 1;
+  } else {
+    cnt += 1;
     if (cnt < n) {
-      if (searched[cnt] == '{') {
-        cnt += 1;
-        while (1) {
-          if (searched[cnt] == '}' & searched[cnt - 1] != '\\') {
-            break;
-          };
-          cnt += 1;
-        };
-        cnt += 1;
+      if (searched[cnt] == '-') {
+        cnt += 2;
       };
+    } else {
+      return cnt;
     };
-  } else if (3 < n) {
-    if (searched[1] == '{') {
-      if (searched[0] == '\\') {
-        if (searched[2] == '{') {
-          cnt = 3;
-          continue_ok = 1;
-        };
-      } else {
-        continue_ok = 1;
-        cnt = 2;
-      };
-    };
-    if (continue_ok) {
+  };
+  if (!(cnt < n)) {
+    return cnt;
+  } else if (searched[cnt] == '{') {
+    cnt += 1;
+    if (searched[cnt] == '?') {
+      cnt += 1;
+      cur_par = 1;
       while (1) {
         if (searched[cnt] == '}' & searched[cnt - 1] != '\\') {
-          break;
+          cur_par -= 1;
+          if (cur_par == 0) {
+            break;
+          };
+        } else if (searched[cnt] == '{' & searched[cnt - 1] != '\\') {
+          cur_par += 1;
         };
         cnt += 1;
       };
-      cnt += 1;
     } else {
-      cnt = 1;
+      while (searched[cnt] != '}') {
+        cnt += 1;
+      };
     };
+    cnt += 1;
+    return cnt;
   } else {
-    cnt = 1;
+    return cnt;
   };
-  return cnt;
 };
 
 
