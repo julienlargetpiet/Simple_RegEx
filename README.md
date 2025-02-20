@@ -16,7 +16,7 @@ In **or context**, do not put set of elements that have commun elements. Convert
 
 ### Usage
 
-`regex_findr(std::string &searched, std::string &x)`
+`regex_findrmid(std::string searched, std::string x)`
 
 - searched is the RegEx expression
 - x is the string to search in
@@ -26,7 +26,7 @@ In **or context**, do not put set of elements that have commun elements. Convert
 ```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[u{1}p{2}]{2}ii[a-em]";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -46,7 +46,7 @@ ppppiim
 ```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[u{1}p{2}]{+1}ii[a-em]";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -66,7 +66,7 @@ ppppiim
 ```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "e{+1}p{2}";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -86,7 +86,7 @@ eeepp
 ```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[a-ia-z]{+1}";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -106,7 +106,7 @@ eieee
 ```
 std::string inpt_str = "ouppplchdcpdedmePp";
 std::string searched = "[mqp]{0}up{3}lchdy{+0}p{0}";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findr(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
