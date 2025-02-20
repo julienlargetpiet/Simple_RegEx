@@ -1,5 +1,42 @@
 #include "layer1.h"
 
+//@T regex_findrmid
+//@U std::map&lt;std::vector&lt;int&gt;, std::map&lt;bool, std::string&gt;&gt; regex_findrmid(std::string searched, std::string x)
+//@X
+//@D ReGex dialect that handles break patterns declared as <code>{?pattern}</code>.
+//@A searched : is the searche string
+//@A x : is the string to search in
+//@X
+//@E std::string inpt_str = "uuppplchhdcpdedmepp";
+//@E std::string searched = "[u{1}]{2}p{3}[lpm]{?p{3}}chh{?mepp}d{?mepp}";
+//@E std::map&lt;std::vector&lt;int&gt;, std::map&lt;bool, std::string&gt;&gt; outmp = regex_findrmid(searched, inpt_str);
+//@E std::map&lt;std::vector&lt;int&gt;, std::map&lt;bool, std::string&gt;&gt;::iterator it = outmp.begin();
+//@E std::vector&lt;int&gt; vec1 = it-&gt;first;
+//@E std::map&lt;bool, std::string&gt;::iterator it2b = it-&gt;second.begin();
+//@E std::cout &lt;&lt; vec1[0] << "\n";
+//@E std::cout &lt;&lt; vec1[1] << "\n";
+//@E std::cout &lt;&lt; it2b->first << "\n";
+//@E std::cout &lt;&lt; it2b->second << "\n";
+//@E 0
+//@E 9
+//@E 1
+//@E "uuppplchhd"
+//@E inpt_str = "uouuupeieeeppppiimiooo";
+//@E searched = "[p]{4}i{?ooo}i[a-zm]";
+//@E outmp = regex_findrmid(searched, x);
+//@E it = outmp.begin();
+//@E vec1 = it-&gt;first;
+//@E it2b = it-&gt;second.begin();
+//@E vec1[0] << "\n";
+//@E vec1[1] << "\n";
+//@E it2b->first << "\n";
+//@E it2b->second << "\n";
+//@E 11
+//@E 17
+//@E 1
+//@E "ppppiim"
+//@X
+
 std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::string searched, std::string x) {
   std::string cur_searched = "";
   std::string cur_cur_searched = "";
