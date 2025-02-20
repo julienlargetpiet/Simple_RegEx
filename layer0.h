@@ -488,7 +488,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
       if (searched[cnt] == '{') {
         is_repetition = 1;
         cnt += 1;
-        if (searched[cnt] != '?') {
+        if (searched[cnt] != '?') { 
           if (searched[cnt] == '+') {
             greedy_state1 = 1;
             cnt += 1;
@@ -545,6 +545,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
         cnt += 1;
       };
     };
+    bf_cnt2 = cnt;
     cur_matched_str = x[cnt - 1];
     i += 1;
     if (cur_found & i < n) {
@@ -687,14 +688,12 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
         };
         rep_val = 1;
       };
-      bf_cnt2 = cnt;
     } else {
       if (ref_rep_val == 0) {
         if (cur_found) {
           cur_found = 0;
         } else {
           cur_found = 1;
-          bf_cnt2 = cnt;
         };
         if (i + 3 < n) {
           if (searched[i] == '{' & searched[i + 1] == '0' & searched[i + 2] == '}') {
@@ -713,7 +712,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
             cur_found = 0;
           } else {
             cur_found = 1;
-            bf_cnt2 = cnt;
           };
           i += 3;
         } else if (searched[i] == '{' & searched[i + 1] == '+' & searched[i + 2] == '0' & searched[i + 3] == '}') {
@@ -721,7 +719,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
             cur_found = 0;
           } else {
             cur_found = 1;
-            bf_cnt2 = cnt;
           };
           i += 4;
         };
@@ -731,36 +728,59 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
             cur_found = 0;
           } else {
             cur_found = 1;
-            bf_cnt2 = cnt;
           };
           i += 3;
         };
       } else {
-        if (cur_found & ref_rep_val > 1) {
+        if (cur_found) {
           idx_cnt = 1;
           if (!range_state) {
             while (cur_found & cnt < n2 & idx_cnt < ref_rep_val) {
-              cur_found = (ref_int1 == x[cnt]);
+              cur_found = (ref_int1 == int(x[cnt]));
               cur_matched_str.push_back(x[cnt]);
               cnt += 1;
-              idx_cnt += 1;
+              if (cur_found) {
+                idx_cnt += 1;
+              };
             };
             if (idx_cnt == ref_rep_val) {
               cur_found = 1;
             } else {
               cur_found = 0;
             };
+            if (greedy_state1 & cur_found) {
+              while (cnt < n2) {
+                if (ref_int1 == int(x[cnt])) {
+                  cur_matched_str.push_back(x[cnt]);
+                } else {
+                  break;
+                };
+                cnt += 1;
+              };
+            };
           } else {
-            while (cur_found & cnt < n2) {
+            while (cur_found & cnt < n2 & idx_cnt < ref_rep_val) {
               cur_found = (int(x[cnt]) >= ref_int1 & int(x[cnt]) <= ref_int2);
               cur_matched_str.push_back(x[cnt]);
               cnt += 1;
-              idx_cnt += 1;
+              if (cur_found) {
+                idx_cnt += 1;
+              };
             };
             if (idx_cnt == ref_rep_val) {
               cur_found = 1;
             } else {
               cur_found = 0;
+            };
+            if (greedy_state1 & cur_found) {
+              while (cnt < n2) {
+                if (int(x[cnt]) >= ref_int1 & int(x[cnt]) <= ref_int2) {
+                  cur_matched_str.push_back(x[cnt]);
+                } else {
+                  break;
+                };
+                cnt += 1;
+              };
             };
           };
         };
@@ -801,9 +821,13 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
     };
     if (rep_val == 0 || ref_rep_val == 0) {
       if (bf_cnt_zero + 1 < bf_cnt2) {
-        lst_cnt = bf_cnt_zero;
-        pre_cnt = lst_cnt;
-        break;
+        if (bf_cnt2 > 1) {
+          lst_cnt = bf_cnt2 - 2;
+          cur_matched_str = x[lst_cnt];
+          pre_cnt = lst_cnt;
+          cur_found = 1;
+          break;
+        };
       };
       bf_cnt_zero = cnt;
     };
