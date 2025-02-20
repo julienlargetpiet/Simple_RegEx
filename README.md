@@ -125,7 +125,7 @@ uppplchd
 
 ### Break patterns
 
-Break patterns are used after a set of elements to significate their greedyness until it encounters a certain pattern.
+Break patterns are used after a set of elements to significate their greedyness until it encounters a certain pattern. They are declared with `{?pattern}`
 
 ```
 std::string inpt_str = "uuppplchhdcpdedmepp";
