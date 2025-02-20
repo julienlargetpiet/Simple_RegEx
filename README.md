@@ -16,7 +16,7 @@ In **or context**, do not put set of elements that have commun elements. Convert
 
 ### Usage
 
-`regex_findrmid(std::string searched, std::string x)`
+`regex_findrmid(std::string &searched, std::string &x)`
 
 - searched is the RegEx expression
 - x is the string to search in
