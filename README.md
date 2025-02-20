@@ -14,6 +14,8 @@ The rule of thumb is to not put same set of elements side to side as the first 2
 
 In **or context**, do not put set of elements that have commun elements. Convert them to multiple exactly different sets with no commun elements.
 
+The or context repetition prevails the element repetition, such as its break pattern.
+
 ### Usage
 
 `regex_findrmid(std::string &searched, std::string &x)`
@@ -97,10 +99,10 @@ std::cout << it2b->second << "\n";
 ```
 
 ```
-6
-10
+7
+7
 1
-eieee
+i
 ```
 
 ```
