@@ -26,8 +26,8 @@ The or context repetition prevails the element repetition, such as its break pat
 ## Examples
 
 ```
-std::string inpt_str = "uouuupeieeeppppiimi";
-std::string searched = "[u{1}p{2}]{2}ii[a-em]";
+std::string inpt_str = "aouppplchdcpdeudmePpuu";
+std::string searched = "u{0}up{3}lchdy{+0}c{+0}";
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
@@ -39,10 +39,10 @@ std::cout << it2b->second << "\n";
 ```
 
 ```
-11
-17
 1
-ppppiim
+11
+1
+ouppplchdcp
 ```
 
 ```
@@ -99,15 +99,15 @@ std::cout << it2b->second << "\n";
 ```
 
 ```
-7
-7
+5
+10
 1
-i
+eieee
 ```
 
 ```
-std::string inpt_str = "ouppplchdcpdedmePp";
-std::string searched = "[mqp]{0}up{3}lchdy{+0}p{0}";
+std::string inpt_str = "aaaouppplchdcpdedmePp";
+std::string searched = "[lmpu]{0}up{3}lchdy{+0}p{1}";
 std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
@@ -119,10 +119,10 @@ std::cout << it2b->second << "\n";
 ```
 
 ```
+3
+13
 1
-8
-1
-uppplchd
+ouppplchdcp
 ```
 
 ### Break patterns
