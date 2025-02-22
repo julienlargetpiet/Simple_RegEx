@@ -2,39 +2,6 @@
 #include<vector>
 #include<map>
 
-template <typename T, typename T2> unsigned int match(const std::vector<T> &source, const T2 &ptrn) {
-  int cnt = 0;
-  for (typename std::vector<T>::const_iterator i = source.begin(); i != source.end(); ++i) {
-    if (*i == ptrn) {
-      return cnt;
-    };
-    cnt += 1;
-  };
-  return -1;
-};
-
-template <typename T> std::vector<T> sort_ascout(const std::vector<T> &x) {
-  std::vector<T> rtn = x;
-  const unsigned int n = x.size();
-  int i = 1;
-  T ref;
-  while (i < n) {
-    if (rtn[i] < rtn[i - 1]) {
-      ref = rtn[i];
-      rtn[i] = rtn[i - 1];
-      rtn[i - 1] = ref;
-      if (i > 1) {
-        i -= 1;
-      } else {
-        i += 1;
-      };
-    } else {
-      i += 1;
-    };
-  };
-  return rtn;
-};
-
 //@I This minimalist RegEx flavor allows basic RegEx features such as:
 //@I 
 //@I - **or context** which is the set of elements that are inside `[]`, evaluates the expression from left to right 
@@ -224,6 +191,15 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
       };
       if (greedy_state2 & rep_val == 0) {
         rep_val = 1;
+        if (ref_rep_val == 0) {
+          ref_rep_val = 1;
+        };
+      };
+      if (greedy_state1 & ref_rep_val == 0) {
+        ref_rep_val = 1;
+        if (rep_val == 0) {
+          rep_val = 1;
+        };
       };
       bf_rep_val = rep_val;
       if (range_state & is_repetition & rep_val != 0 & ref_rep_val != 0) {
@@ -333,7 +309,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
       };
       if (rep_val == 0 || ref_rep_val == 0) {
         cur_found = 0;
-        cur_matched_str = "";
       };
     } else {
       if (ref_rep_val == 0) {
@@ -341,7 +316,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
           cur_found = 0;
         } else {
           cur_found = 1;
-          cur_matched_str = "";
         };
         if (i + 3 < n) {
           if (searched[i] == '{' & searched[i + 1] == '0' & searched[i + 2] == '}') {
@@ -362,7 +336,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
             cur_found = 0;
           } else {
             cur_found = 1;
-            cur_matched_str = "";
           };
         } else if (searched[i] == '{' & searched[i + 1] == '+' & searched[i + 2] == '0' & searched[i + 3] == '}') {
           i += 4;
@@ -371,7 +344,6 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
             cur_found = 0;
           } else {
             cur_found = 1;
-            cur_matched_str = "";
           };
         };
       } else if (i + 3 == n) {
@@ -382,13 +354,9 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
             cur_found = 0;
           } else {
             cur_found = 1;
-            cur_matched_str = "";
           };
         };
       };
-    };
-    if (rep_val == 0 || ref_rep_val == 0) {
-      cnt -= 1;
     };
     if (or_state) {
       rep_val = 1;
@@ -501,11 +469,11 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
             cnt += 1;
           };
         };
+        while (searched[idx_cnt] != '}') {
+          searched.erase(searched.begin() + idx_cnt);
+          n -= 1;
+        };
       };
-    };
-    while (searched[idx_cnt] != '}') {
-      searched.erase(searched.begin() + idx_cnt);
-      n -= 1;
     };
     searched.erase(searched.begin() + idx_cnt);
     searched.erase(searched.begin());
@@ -575,6 +543,15 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
       };
       if (greedy_state2 & rep_val == 0) {
         rep_val = 1;
+        if (ref_rep_val == 0) {
+          ref_rep_val = 1;
+        };
+      };
+      if (greedy_state1 & ref_rep_val == 0) {
+        ref_rep_val = 1;
+        if (rep_val == 0) {
+          rep_val = 1;
+        };
       };
       bf_rep_val = rep_val;
       if (range_state & is_repetition & rep_val != 0 & ref_rep_val != 0) {
@@ -708,6 +685,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
         };
       } else if (i + 3 < n) {
         if (searched[i] == '{' & searched[i + 1] == '0' & searched[i + 2] == '}') {
+          rep_val = 0;
           if (cur_found) {
             cur_found = 0;
           } else {
@@ -724,6 +702,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
         };
       } else if (i + 3 == n) {
         if (searched[i] == '{' & searched[i + 1] == '0' & searched[i + 2] == '}') {
+          rep_val = 0;
           if (cur_found) {
             cur_found = 0;
           } else {
@@ -822,7 +801,11 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr1sub
     if (rep_val == 0 || ref_rep_val == 0) {
       if (bf_cnt_zero + 1 < bf_cnt2) {
         if (bf_cnt2 > 1) {
-          lst_cnt = bf_cnt2 - 2;
+          if (bf_cnt2 < n2) {
+            lst_cnt = bf_cnt2 - 2;
+          } else {
+            lst_cnt = bf_cnt2 - 1;
+          };
           cur_matched_str = x[lst_cnt];
           pre_cnt = lst_cnt;
           cur_found = 1;
