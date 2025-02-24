@@ -149,12 +149,14 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
               cur_hmn_idx = 0;
               cur_hmn += 1;
               if (cur_hmn < n_hmn) {
+                cur_searched = "";
                 rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                 rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
               } else {
                 return {{{0, 0}, {{0, ""}}}};
               };
             } else {
+              cur_searched = "";
               rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
             };
           };
@@ -199,12 +201,14 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
                 cur_hmn_idx = 0;
                 cur_hmn += 1;
                 if (cur_hmn < n_hmn) {
+                  cur_searched = "";
                   rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                   rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
                 } else {
                   return {{{0, 0}, {{0, ""}}}};
                 };
               } else {
+                cur_searched = "";
                 rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
               };
             };
@@ -333,12 +337,14 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
               cur_hmn_idx = 0;
               cur_hmn += 1;
               if (cur_hmn < n_hmn) {
+                cur_searched = "";
                 rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                 rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
               } else {
                 return {{{0, 0}, {{0, ""}}}};
               };
             } else {
+              cur_searched = "";
               rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
             };
           };
@@ -707,12 +713,16 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
       cur_hmn_idx = 0;
       cur_hmn += 1;
       if (cur_hmn < n_hmn) {
+        cur_searched = "";
+        cnt = ref_cnt;
         rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
         rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
       } else {
         break;
       };
     } else {
+      cur_searched = "";
+      cnt = ref_cnt;
       rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
     };
   };
