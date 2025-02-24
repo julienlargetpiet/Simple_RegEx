@@ -50,6 +50,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findrlow(
             idx_v = cur_it->first;
             rtn_pre_cnt = rtn_lst_cnt - rtn_str.length() + 1;
             rtn_lst_cnt += idx_v[1];
+            rtn_lst_cnt += 1;
             cur_str = rslt_mp->second;
             rtn_str += cur_str;
             return {{{rtn_pre_cnt, rtn_lst_cnt}, {{1, rtn_str}}}};
@@ -65,7 +66,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findrlow(
   } else {
     rtn_lst_cnt = idx_hmn[0][0];
     rtn_str = str_hmn[0][0];
-    rtn_pre_cnt = rtn_lst_cnt - rtn_str.length();
+    rtn_pre_cnt = rtn_lst_cnt - rtn_str.length() + 1;
     return {{{rtn_pre_cnt, rtn_lst_cnt}, {{1, rtn_str}}}};
   };
 };
