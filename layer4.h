@@ -158,6 +158,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
             } else {
               cur_searched = "";
               rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+              rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
             };
           };
         };
@@ -210,6 +211,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
               } else {
                 cur_searched = "";
                 rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+                rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
               };
             };
           };
@@ -346,6 +348,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
             } else {
               cur_searched = "";
               rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+              rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
             };
           };
         };
@@ -510,11 +513,14 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
                 if (cur_hmn < n_hmn) {
                   rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                   rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+                  cur_searched = "";
                 } else {
                   return {{{}, {}}};
                 };
               } else {
+                cur_searched = "";
                 rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+                rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
               };
             };
           };
@@ -558,13 +564,16 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
                   cur_hmn_idx = 0;
                   cur_hmn += 1;
                   if (cur_hmn < n_hmn) {
+                    cur_searched = "";
                     rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                     rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
                   } else {
                     return {{{}, {}}};
                   };
                 } else {
+                  cur_searched = "";
                   rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+                  rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                 };
               };
             };
@@ -692,13 +701,16 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
                 cur_hmn_idx = 0;
                 cur_hmn += 1;
                 if (cur_hmn < n_hmn) {
+                  cur_searched = "";
                   rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                   rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
                 } else {
                   return {{{}, {}}};
                 };
               } else {
+                cur_searched = "";
                 rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+                rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
               };
             };
           };
@@ -724,6 +736,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
       cur_searched = "";
       cnt = ref_cnt;
       rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+      rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
     };
   };
   return {{rtn_idxv, rtn_strv}};
