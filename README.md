@@ -168,3 +168,27 @@ it2b->second << "\n";
 1
 "ppppiim"
 ```
+
+```
+inpt_str = "uuppplchhdcpdedmeppuu uuppplchhdcpdedmeppuuppplchhdcpdedmepp";
+searched = "u{2}p{3}[lpm]{?p{3}}c[o{2}oh]h{?mepp}d{?mepp}[ao]{0}";
+std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<int>, std::map<bool, std::string>>::iterator out_it = out_mp.begin();
+std::vector<int> idx_v = out_it->first;
+std::map<bool, std::string>::iterator rslt_mp = out_it->second.begin();
+std::string rtn_str = rslt_mp->second;
+bool is_found = rslt_mp->first;
+std::cout << idx_v[0] << "\n";
+std::cout << idx_v[1] << "\n";
+std::cout << is_found << "\n";
+std::cout << rtn_str << "\n";
+```
+
+```
+0
+10
+1
+uuppplchhdc
+```
+
+
