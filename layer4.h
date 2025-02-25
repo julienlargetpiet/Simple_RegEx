@@ -311,7 +311,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
       cur_searched.push_back(searched[cnt]);
       cnt += 1;
       if (cnt < n) {
-        if (!or_context & searched[cnt] != '[' & searched[cnt] != '{') {
+        if (!or_context & searched[cnt] != '{') {
           if (searched[cnt - 2] == '{') {
             while (searched[cnt] != '}') {
               cur_searched.push_back(searched[cnt]);
@@ -673,7 +673,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
         cur_searched.push_back(searched[cnt]);
         cnt += 1;
         if (cnt < n) {
-          if (!or_context & searched[cnt] != '[' & searched[cnt] != '{') {
+          if (!or_context & searched[cnt] != '{') {
             if (searched[cnt - 2] == '{') {
               while (searched[cnt] != '}') {
                 cur_searched.push_back(searched[cnt]);
@@ -1013,7 +1013,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
       cur_searched.push_back(searched[cnt]);
       cnt += 1;
       if (cnt < n) {
-        if (!or_context & searched[cnt] != '[' & searched[cnt] != '{') {
+        if (!or_context & searched[cnt] != '{') {
           if (searched[cnt - 2] == '{') {
             while (searched[cnt] != '}') {
               cur_searched.push_back(searched[cnt]);
