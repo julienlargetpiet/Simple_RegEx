@@ -10,6 +10,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
   std::string cur_rslt;
   bool ok_next;
   bool is_mult;
+  bool is_greedy1;
   unsigned int idx_condition;
   unsigned int cnt = 0;
   unsigned int temp_cnt;
@@ -21,6 +22,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
   unsigned int cur_hmn = 0;
   unsigned int cur_hmn_idx = 0;
   bool or_context = 0;
+  bool alrd_or_cxt;
   std::map<std::vector<unsigned int>, std::map<bool, std::string>> cur_mp;
   std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator cur_it;
   std::map<bool, std::string>::iterator rslt_mp;
@@ -86,7 +88,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
   rtn_lst_cnt = hmn_idxv[0][0];
   n_hmn = hmn_idxv.size();
   cur_x = "";
-  while (cnt < n) {
+  while (1) {
     if (searched[cnt] == '{' & searched[cnt - 1] != '\\') {
       cnt += 1;
       if (searched[cnt] == '?') {
@@ -140,6 +142,8 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
           if (or_context) {
             if (cnt < conditions_idx) {
               ok_next = 0;
+            } else {
+              or_context = 0;
             };
           };
           if (ok_next) {
@@ -172,6 +176,9 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
           cur_searched.insert(0, 1, '[');
           cur_searched.push_back(']');
           cur_searched.push_back('{');
+          if (is_greedy1) {
+            cur_searched.push_back('+'); 
+          };
           cur_searched += std::to_string(ref_mult);
           cur_searched.push_back('}');
           cur_x = "";
@@ -196,6 +203,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
           } else {
             idx_condition += 1;
             if (cnt == conditions_idx) {
+              or_context = 0;
               cur_hmn_idx += 1;
               cnt = ref_cnt;
               if (cur_hmn_idx == hmn_idxv[cur_hmn].size()) {
@@ -294,6 +302,12 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
             temp_cnt += 1;
           } else {
             is_mult = 1;
+            if (searched[temp_cnt] == '+') {
+              temp_cnt += 1;
+              is_greedy1 = 1;
+            } else {
+              is_greedy1 = 0;
+            };
             ref_mult = int(searched[temp_cnt]) - 48;
             while (searched[temp_cnt] != '}') {
               ref_mult *= 10;
@@ -308,9 +322,14 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
       jump_cnt = temp_cnt;
     };
     if (cnt < n) {
-      cur_searched.push_back(searched[cnt]);
-      cnt += 1;
-      if (cnt < n) {
+      if (searched[cnt] != '[') {
+        cur_searched.push_back(searched[cnt]);
+        cnt += 1;
+        alrd_or_cxt = 0;
+      } else {
+        alrd_or_cxt = 1;
+      };
+      if (cnt < n & !alrd_or_cxt) {
         if (!or_context & searched[cnt] != '{') {
           if (searched[cnt - 2] == '{') {
             while (searched[cnt] != '}') {
@@ -353,6 +372,8 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
           };
         };
       };
+    } else {
+      break;
     };
   };
   rtn_pre_cnt = rtn_lst_cnt - rtn_str.length() + 1;
