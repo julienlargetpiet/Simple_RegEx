@@ -401,6 +401,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
   unsigned int cur_hmn = 0;
   unsigned int cur_hmn_idx = 0;
   bool or_context = 0;
+  bool alrd_or_cxt;
   std::map<std::vector<unsigned int>, std::map<bool, std::string>> cur_mp;
   std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator cur_it;
   std::map<bool, std::string>::iterator rslt_mp;
@@ -469,7 +470,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
   std::vector<std::string> rtn_strv = {};
   cur_x = "";
   while (1) {
-    while (cnt < n) {
+    while (1) {
       if (searched[cnt] == '{' & searched[cnt - 1] != '\\') {
         cnt += 1;
         if (searched[cnt] == '?') {
@@ -523,6 +524,8 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
             if (or_context) {
               if (cnt < conditions_idx) {
                 ok_next = 0;
+              } else {
+                or_context = 0;
               };
             };
             if (ok_next) {
@@ -579,6 +582,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
             } else {
               idx_condition += 1;
               if (cnt == conditions_idx) {
+                or_context = 0;
                 cur_hmn_idx += 1;
                 cnt = ref_cnt;
                 if (cur_hmn_idx == hmn_idxv[cur_hmn].size()) {
@@ -691,10 +695,15 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
         jump_cnt = temp_cnt;
       };
       if (cnt < n) {
-        cur_searched.push_back(searched[cnt]);
-        cnt += 1;
+        if (searched[cnt] != '[') {
+          cur_searched.push_back(searched[cnt]);
+          cnt += 1;
+          alrd_or_cxt = 0;
+        } else {
+          alrd_or_cxt = 1;
+        };
         if (cnt < n) {
-          if (!or_context & searched[cnt] != '{') {
+          if (!or_context & searched[cnt] != '{' & !alrd_or_cxt) {
             if (searched[cnt - 2] == '{') {
               while (searched[cnt] != '}') {
                 cur_searched.push_back(searched[cnt]);
@@ -736,6 +745,8 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
             };
           };
         };
+      } else {
+        break;
       };
     };
     rtn_idxv.push_back(rtn_lst_cnt);
@@ -783,6 +794,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
   unsigned int rtn_pre_cnt;
   bool agn = 1;
   bool or_context = 0;
+  bool alrd_or_cxt;
   std::map<std::vector<unsigned int>, std::map<bool, std::string>> cur_mp;
   std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator cur_it;
   std::map<bool, std::string>::iterator rslt_mp;
@@ -1031,10 +1043,15 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
       jump_cnt = temp_cnt;
     };
     if (cnt < n) {
-      cur_searched.push_back(searched[cnt]);
-      cnt += 1;
+      if (searched[cnt] != '[') {
+        cur_searched.push_back(searched[cnt]);
+        cnt += 1;
+        alrd_or_cxt = 0;
+      } else {
+        alrd_or_cxt = 1;
+      };
       if (cnt < n) {
-        if (!or_context & searched[cnt] != '{') {
+        if (!or_context & searched[cnt] != '{' & !alrd_or_cxt) {
           if (searched[cnt - 2] == '{') {
             while (searched[cnt] != '}') {
               cur_searched.push_back(searched[cnt]);
@@ -1059,6 +1076,8 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
             return {{{0, 0}, {{0, ""}}}};
           };
         };
+      } else {
+        break;
       };
     };
   };
