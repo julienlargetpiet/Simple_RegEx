@@ -886,4 +886,42 @@ int regex_findr_first_condition_idx(std::string searched) {
   };
 };
 
+std::vector<std::vector<unsigned int>> Parser_tokenizer_full(std::string &x, char frst_chr = '(', char scd_chr = ')') {
+  std::vector<unsigned int> num_par;
+  std::vector<int> cur_val;
+  std::vector<unsigned int> idx_vec;
+  int i2;
+  unsigned int cur_num = 0;
+  const unsigned int n = x.length();
+  bool alrd;
+  for (int i = 0; i < n; ++i) {
+    if (x[i] == frst_chr) {
+      idx_vec.push_back(i);
+      num_par.push_back(0);
+      for (i2 = 0; i2 < cur_val.size(); ++i2) {
+        cur_val[i2] += 1;
+      };
+      cur_val.push_back(1);
+    } else if (x[i] == scd_chr) {
+        idx_vec.push_back(i);
+        i2 = cur_val.size() - 1;
+        num_par.push_back(0);
+        cur_val.push_back(1);
+        alrd = 0;
+        while (i2 > -1) {
+          cur_val[i2] -= 1;
+          if (cur_val[i2] == 0 & !alrd) {
+            num_par[i2] = cur_num;
+            num_par[num_par.size() - 1] = cur_num;
+            cur_val[cur_val.size() - 1] = 0;
+            cur_num += 1;
+            alrd = 1;
+          };
+          i2 -= 1;
+        };
+    };
+  };
+  return {num_par, idx_vec};
+};
+
 
