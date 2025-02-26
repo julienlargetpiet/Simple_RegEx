@@ -79,6 +79,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
   unsigned int rep_val_cnt;
   unsigned int ref_rep_val = 1;
   unsigned int jump_i;
+  unsigned int jump_i2;
   unsigned int cur_lmt;
   unsigned int ref_cur_lmt;
   unsigned int bf_rep_val;
@@ -109,6 +110,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
         while (searched[jump_i] != ']' & searched[jump_i - 1] != '\\') {
           jump_i += 1;
         };
+        jump_i2 = jump_i;
         if (jump_i + 2 < n) {
           if (searched[jump_i + 1] == '{') {
             is_repetition = 1;
@@ -369,7 +371,11 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
         is_repetition = 0;
         ref_rep_val = 1;
       } else {
-        return {{{0, 0}, {{0, ""}}}};
+        if (i == jump_i2) {
+          return {{{0, 0}, {{0, ""}}}};
+        } else {
+          cnt = ref_cnt;
+        };
       };
     } else if (!cur_found) {
       return {{{0, 0}, {{0, ""}}}};
