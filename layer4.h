@@ -852,7 +852,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
   rtn_str = "";
   cnt = 1;
   rtn_lst_cnt = -1;
-  while (cnt < n) {
+  while (1) {
     if (searched[cnt] == '{' & searched[cnt - 1] != '\\') {
       cnt += 1;
       if (searched[cnt] == '?') {
