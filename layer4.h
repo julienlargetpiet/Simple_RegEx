@@ -309,6 +309,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
               is_greedy1 = 0;
             };
             ref_mult = int(searched[temp_cnt]) - 48;
+            temp_cnt += 1;
             while (searched[temp_cnt] != '}') {
               ref_mult *= 10;
               ref_mult += (int(searched[temp_cnt]) - 48);
