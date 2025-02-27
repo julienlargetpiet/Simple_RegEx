@@ -330,8 +330,14 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
         alrd_or_cxt = 1;
       };
       if (cnt < n & !alrd_or_cxt) {
-        if (!or_context & searched[cnt] != '{') {
-          if (searched[cnt - 2] == '{') {
+        if (!or_context) {
+          if (searched[cnt] == '-') {
+            cnt += 1;
+            cur_searched.push_back('-');
+            cur_searched.push_back(searched[cnt]);
+            cnt += 1;
+          };
+          if (searched[cnt] == '{') {
             while (searched[cnt] != '}') {
               cur_searched.push_back(searched[cnt]);
               cnt += 1;
