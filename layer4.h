@@ -702,7 +702,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
         } else {
           alrd_or_cxt = 1;
         };
-        if (cnt < n) {
+        if (cnt < n & !alrd_or_cxt) {
           if (!or_context & searched[cnt] != '{' & !alrd_or_cxt) {
             if (searched[cnt - 2] == '{') {
               while (searched[cnt] != '}') {
@@ -1050,7 +1050,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
       } else {
         alrd_or_cxt = 1;
       };
-      if (cnt < n) {
+      if (cnt < n & !alrd_or_cxt) {
         if (!or_context & searched[cnt] != '{' & !alrd_or_cxt) {
           if (searched[cnt - 2] == '{') {
             while (searched[cnt] != '}') {
@@ -1076,9 +1076,9 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
             return {{{0, 0}, {{0, ""}}}};
           };
         };
-      } else {
-        break;
       };
+    } else {
+      break;
     };
   };
   rtn_pre_cnt = rtn_lst_cnt - rtn_str.length() + 1;
