@@ -15,7 +15,7 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::vector<std::st
   std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator cur_it;
   std::map<bool, std::string>::iterator rslt_mp;
   std::vector<unsigned int> idx_v;
-  std::vector<unsigned int> conditions_idx_v = {1};
+  std::vector<unsigned int> conditions_idx_v = {};
   std::vector<std::vector<std::string>> hmn_str_idxv = {};
   std::vector<unsigned int> cur_hmn_idxv = {};
   std::vector<std::string> cur_hmn_strv = {};
@@ -41,7 +41,7 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::vector<std::st
   std::string cur_break_ptrn;
   std::string cur_searched;
   if (searched[0] == '[') {
-    temp_cnt = 2;
+    temp_cnt = 1;
     while (searched[temp_cnt] != ']' & searched[temp_cnt - 1] != '\\') {
       if (searched[temp_cnt] == '{' & searched[temp_cnt - 1] != '\\') {
         bgn_par = 1;
@@ -49,6 +49,11 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::vector<std::st
         bgn_par = 0;
       } else if (!bgn_par) {
         conditions_idx_v.push_back(temp_cnt);
+        if (temp_cnt + 1 < ncx) {
+          if (searched[temp_cnt + 1] == '-') {
+            temp_cnt += 2;
+          };
+        };
       };
       temp_cnt += 1;
     };
@@ -432,6 +437,12 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::vector<std::st
   } else {
     cur_x = x;
     cur_searched = searched[0];
+    if (ncx > 1) {
+      if (searched[1] == '-') {
+        cur_searched.push_back('-');
+        cur_searched.push_back(searched[2]);
+      };
+    };
     if (ncx > 1) {
       temp_cnt2 = 1;
       if (searched[temp_cnt2] == '{') {
