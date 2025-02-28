@@ -349,21 +349,23 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
       } else {
         alrd_or_cxt = 1;
       };
-      if (cnt < n & !alrd_or_cxt) {
+      if (!alrd_or_cxt) {
         if (!or_context) {
-          if (searched[cnt] == '-') {
-            cnt += 1;
-            cur_searched.push_back('-');
-            cur_searched.push_back(searched[cnt]);
-            cnt += 1;
-          };
-          if (searched[cnt] == '{') {
-            while (searched[cnt] != '}') {
+          if (cnt < n) {
+            if (searched[cnt] == '-') {
+              cnt += 1;
+              cur_searched.push_back('-');
               cur_searched.push_back(searched[cnt]);
               cnt += 1;
             };
-            cur_searched.push_back('}');
-            cnt += 1;
+            if (searched[cnt] == '{') {
+              while (searched[cnt] != '}') {
+                cur_searched.push_back(searched[cnt]);
+                cnt += 1;
+              };
+              cur_searched.push_back('}');
+              cnt += 1;
+            };
           };
           cur_x = "";
           for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
