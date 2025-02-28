@@ -1,5 +1,4 @@
 #include "layer3.h"
-#include <unistd.h>
 
 std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::string &searched, std::string &x) {
   std::string cur_searched = "";
