@@ -600,9 +600,6 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
               rtn_lst_cnt += cur_str.length();
               cur_x = "";
               n2 = n2_ref;
-              for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
-                cur_x.push_back(x[temp_cnt]);
-              };
               cnt = jump_cnt;
               or_context = 0;
               is_mult = 0;
