@@ -95,17 +95,21 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
   unsigned int temp_i;
   bool is_repetition = 0;
   bool alrd_zero = 0;
+  bool or_found_alrd;
   unsigned int cur_idx;
   unsigned int bf_cnt_zero = 0;
+  unsigned int bgn_i;
   while (i < n & cnt < n2) {
     greedy_state2 = 0;
     if (searched[i] == '\\') {
       i += 1;
     } else {
       if (searched[i] == '[') {
+        or_found_alrd = 0;
         ref_cnt = cnt;
         or_state = 1;
         i += 1;
+        bgn_i = i;
         jump_i = i;
         while (searched[jump_i] != ']' & searched[jump_i - 1] != '\\') {
           jump_i += 1;
@@ -359,20 +363,27 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
     if (or_state) {
       rep_val = 1;
       if (cur_found) {
+        ref_cnt = cnt;
+        or_found_alrd = 1;
         matched_str += cur_matched_str;
-        i = jump_i + 1;
+        i = bgn_i;
         if (cur_matched_str != "") {
           lst_cnt = cnt - 1;
         } else {
           lst_cnt = cnt;
         };
-        or_state = 0;
-        greedy_state1 = 0;
-        is_repetition = 0;
-        ref_rep_val = 1;
       } else {
         if (i == jump_i2) {
-          return {{{0, 0}, {{0, ""}}}};
+          if (!or_found_alrd) {
+            return {{{0, 0}, {{0, ""}}}};
+          } else {
+            cur_found = 1;
+            i = jump_i + 1;
+            or_state = 0;
+            greedy_state1 = 0;
+            is_repetition = 0;
+            ref_rep_val = 1;
+          };
         } else {
           cnt = ref_cnt;
         };
@@ -391,7 +402,7 @@ std::map<std::vector<unsigned int>, std::map<bool, std::string>> regex_findr2sub
     };
   };
   rtn_str = matched_str;
-  pre_cnt = cnt - matched_str.length();
+  pre_cnt = lst_cnt - matched_str.length() + 1;
   return {{{pre_cnt, lst_cnt}, 
           {{cur_found, rtn_str}}}}; 
 };
