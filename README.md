@@ -191,4 +191,30 @@ std::cout << rtn_str << "\n";
 uuppplchhdc
 ```
 
+## Important 
+
+If the first condition is an or context with multiple conditions, make sure to repeat this condition as it follows. (for the set of characters that have a repetition strictly superior to 0)
+
+```
+inpt_str = "Caaaaaaaaaaa_aaasympa où l'on pourrait randonner ?";
+searched = "[a-z{+1}_{+1}]{?sympa}[a-z{+0}_{+0}]{?sympa}";
+std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<int>, std::map<bool, std::string>>::iterator out_it = out_mp.begin();
+std::vector<int> idx_v = out_it->first;
+std::map<bool, std::string>::iterator rslt_mp = out_it->second.begin();
+std::string rtn_str = rslt_mp->second;
+bool is_found = rslt_mp->first;
+std::cout << idx_v[0] << "\n";
+std::cout << idx_v[1] << "\n";
+std::cout << is_found << "\n";
+std::cout << rtn_str << "\n";
+```
+
+```
+1
+15
+1
+aaaaaaaaaaa_aaa
+```
+
 
