@@ -193,7 +193,7 @@ uuppplchhdc
 
 ## Important 
 
-If the first condition is an or context with break pattern and multiple conditions, make sure to repeat this condition as it follows. (for the set of characters that have a repetition strictly superior to 0)
+If the first condition is an or context with multiple conditions, make sure to repeat this condition as it follows. (for the set of characters that have a repetition strictly superior to 0)
 
 ```
 inpt_str = "Caaaaaaaaaaa_aaasympa où l'on pourrait randonner ?";
