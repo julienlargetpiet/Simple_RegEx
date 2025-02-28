@@ -1,4 +1,5 @@
 #include "layer3.h"
+#include <unistd.h>
 
 std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::string &searched, std::string &x) {
   std::string cur_searched = "";
@@ -11,9 +12,12 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
   bool ok_next;
   bool is_mult;
   bool is_greedy1;
+  bool alrd_or_found;
+  bool cur_found;
   unsigned int idx_condition;
   unsigned int cnt = 0;
   unsigned int temp_cnt;
+  unsigned int bf_or_cnt;
   unsigned int jump_cnt;
   unsigned int ref_mult;
   int rtn_lst_cnt = -1;
@@ -185,41 +189,54 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
           for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
             cur_x.push_back(x[temp_cnt]);
           };
-          cur_mp = regex_findr2sub(cur_searched, cur_x);
-          cur_it = cur_mp.begin();
-          rslt_mp = cur_it->second.begin();
-          if (rslt_mp->first) {
+          if (cur_x.length() > 0) {
+            cur_mp = regex_findr2sub(cur_searched, cur_x);
+            cur_it = cur_mp.begin();
+            rslt_mp = cur_it->second.begin();
+            cur_found = rslt_mp->first;
+          } else {
+            cur_found = 0;
+          };
+          idx_condition += 1;
+          if (cur_found) {
+            alrd_or_found = 1;
             cur_str = rslt_mp->second;
             rtn_str += cur_str;
             rtn_lst_cnt += cur_str.length();
             cur_x = "";
-            n2 = n2_ref;
             for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
               cur_x.push_back(x[temp_cnt]);
             };
-            cnt = jump_cnt;
-            or_context = 0;
-            is_mult = 0;
+            if (searched[cnt] == ']') {
+              cnt = bf_or_cnt;
+              idx_condition = 0;
+            };
           } else {
-            idx_condition += 1;
             if (cnt == conditions_idx) {
-              or_context = 0;
-              cur_hmn_idx += 1;
-              cnt = ref_cnt;
-              if (cur_hmn_idx == hmn_idxv[cur_hmn].size()) {
-                cur_hmn_idx = 0;
-                cur_hmn += 1;
-                if (cur_hmn < n_hmn) {
-                  cur_searched = "";
-                  rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
-                  rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+              if (!alrd_or_found) {
+                or_context = 0;
+                cur_hmn_idx += 1;
+                cnt = ref_cnt;
+                if (cur_hmn_idx == hmn_idxv[cur_hmn].size()) {
+                  cur_hmn_idx = 0;
+                  cur_hmn += 1;
+                  if (cur_hmn < n_hmn) {
+                    cur_searched = "";
+                    rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
+                    rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+                  } else {
+                    return {{{0, 0}, {{0, ""}}}};
+                  };
                 } else {
-                  return {{{0, 0}, {{0, ""}}}};
+                  cur_searched = "";
+                  rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
+                  rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                 };
               } else {
-                cur_searched = "";
-                rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
-                rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
+                cnt = jump_cnt;
+                or_context = 0;
+                is_mult = 0;
+                n2 = n2_ref;
               };
             };
           };
@@ -232,9 +249,11 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
         cur_x.push_back(x[temp_cnt]);
       };
       idx_condition = 0;
+      alrd_or_found = 0;
       is_mult = 0;
       conditions_idxv2 = {};
       temp_cnt = cnt + 1;
+      bf_or_cnt = temp_cnt;
       or_context = 1;
       ref_mult = 1;
       while (1) {
@@ -265,9 +284,10 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
            };
         } else {
           if (searched[temp_cnt + 1] == '-') {
-            temp_cnt += 2;
+            temp_cnt += 1;
+          } else {
+            conditions_idxv2.push_back(temp_cnt);
           };
-          conditions_idxv2.push_back(temp_cnt);
         };
         temp_cnt += 1;
       };
