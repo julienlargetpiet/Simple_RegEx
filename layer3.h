@@ -437,14 +437,15 @@ std::map<std::vector<std::vector<unsigned int>>, std::vector<std::vector<std::st
   } else {
     cur_x = x;
     cur_searched = searched[0];
+    temp_cnt2 = 1;
     if (ncx > 1) {
       if (searched[1] == '-') {
         cur_searched.push_back('-');
         cur_searched.push_back(searched[2]);
+        temp_cnt2 = 3;
       };
     };
-    if (ncx > 1) {
-      temp_cnt2 = 1;
+    if (temp_cnt2 < ncx) {
       if (searched[temp_cnt2] == '{') {
         if (searched[temp_cnt2 + 1] != '?') {
           while (1) {
