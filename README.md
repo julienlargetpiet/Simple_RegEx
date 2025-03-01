@@ -1,13 +1,12 @@
 # Simple_RegEx
 
-## First RegEx flavor
-
-This minimalist RegEx flavor allows basic RegEx features such as:
+## Features
 
 - **or context** which is the set of elements that are inside `[]`, evaluates the expression from left to right 
 - **range elements** matches every elements that are between `x-y` acording to the ASCII table
 - **repetition** is the number of times a set of elements have to be matched, this is declared inside `{n}` after the set of elements
-- **greedyness** allows to match a given number of times a set of elements or more, this is declared by `{+n}` after the set of elements
+- **greedyness** allows to match a given number of times, or more, a set of elements or more, this is declared by `{+n}` after the set of elements
+- **greedyness until break pattern** allows to match an unknown number of times a set of elements until it does not match anymore or it encounters another pattern (named break pattern)
 - '\\' is used to escape special characters, apart when it is in a range context, so `\\-x` or `x-\\` are valid
 
 The rule of thumb is to not put same set of elements side to side.
@@ -16,7 +15,13 @@ In **or context**, do not put set of elements that have commun elements. Convert
 
 The or context repetition prevails the element repetition, such as its break pattern.
 
-### Usage
+## How it works ?
+
+![doc1](doc1.jpg)
+
+![doc2](doc2.jpg)
+
+## Usage
 
 `regex_findrmid(std::string &searched, std::string &x)`
 
