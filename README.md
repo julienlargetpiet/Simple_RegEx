@@ -8,7 +8,7 @@
 - **range elements** matches every elements that are between `x-y` acording to the ASCII table
 - **repetition** is the number of times a set of elements have to be matched, this is declared inside `{n}` after the set of elements
 - **greedyness** allows to match a given number of times, or more, a set of elements or more, this is declared by `{+n}` after the set of elements
-- **greedyness until break pattern** allows to match an unknown number of times a set of elements until it does not match anymore or it encounters another pattern (named break pattern)
+- **greedyness until break pattern** allows to match an unknown number of times a set of elements until it does not match anymore or it encounters another pattern (named break pattern) It is declared with `{?break_pattern}`
 - '\\' is used to escape special characters, apart when it is in a range context, so `\\-x` or `x-\\` are valid
 
 The rule of thumb is to not put same set of elements side to side.
