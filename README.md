@@ -23,6 +23,8 @@ The or context repetition prevails the element repetition, such as its break pat
 
 ![doc2](doc2.jpg)
 
+![doc3](doc3.jpg)
+
 ## Usage
 
 `regex_findrmid(std::string &searched, std::string &x)`
