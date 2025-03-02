@@ -571,7 +571,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
                   rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                   rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
                 } else {
-                  return {{{}, {}}};
+                  break;
                 };
               } else {
                 cur_searched = "";
@@ -635,7 +635,7 @@ std::map<std::vector<int>, std::vector<std::string>> regex_findr_bgn_high(std::s
                       rtn_str = hmn_str_idxv[cur_hmn][cur_hmn_idx];
                       rtn_lst_cnt = hmn_idxv[cur_hmn][cur_hmn_idx];
                     } else {
-                      return {{{}, {}}};
+                      break;
                     };
                   } else {
                     cur_searched = "";
@@ -851,8 +851,12 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
   std::string cur_rslt;
   bool ok_next;
   bool is_mult;
+  bool is_greedy1;
+  bool cur_found;
+  bool alrd_or_found;
   unsigned int idx_condition;
   unsigned int cnt = 0;
+  unsigned int bf_or_cnt;
   unsigned int temp_cnt;
   unsigned int jump_cnt;
   unsigned int ref_mult;
