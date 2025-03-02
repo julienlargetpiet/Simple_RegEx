@@ -929,6 +929,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
         ok_next = 1;
         cnt += 1;
         cur_break_ptrn = "";
+        cur_x = "";
         cur_par = 1;
         while (1) {
           if (searched[cnt] == '{' & searched[cnt] != '\\') {
@@ -943,7 +944,6 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
           cnt += 1;
         };
         cnt += 1;
-        cur_x = "";
         for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
           cur_x.push_back(x[temp_cnt]);
         };
@@ -976,10 +976,12 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
           if (or_context) {
             if (cnt < conditions_idx) {
               ok_next = 0;
+            } else {
+              or_context = 0;
             };
           };
           if (ok_next) {
-            return {{{0, 0}, {{0, ""}}}};
+            break;
           };
         };
         cur_searched = "";
@@ -992,32 +994,47 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
           cur_searched.insert(0, 1, '[');
           cur_searched.push_back(']');
           cur_searched.push_back('{');
+          if (is_greedy1) {
+            cur_searched.push_back('+'); 
+          };
           cur_searched += std::to_string(ref_mult);
           cur_searched.push_back('}');
           cur_x = "";
           for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
             cur_x.push_back(x[temp_cnt]);
           };
-          cur_mp = regex_findr2sub(cur_searched, cur_x);
-          cur_it = cur_mp.begin();
-          rslt_mp = cur_it->second.begin();
-          if (rslt_mp->first) {
+          if (cur_x.length() > 0) {
+            cur_mp = regex_findr2sub(cur_searched, cur_x);
+            cur_it = cur_mp.begin();
+            rslt_mp = cur_it->second.begin();
+            cur_found = rslt_mp->first;
+          } else {
+            cur_found = 0;
+          };
+          idx_condition += 1;
+          if (cur_found) {
+            alrd_or_found = 1;
             cur_str = rslt_mp->second;
             rtn_str += cur_str;
             rtn_lst_cnt += cur_str.length();
             cur_x = "";
-            n2 = n2_ref;
             for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
               cur_x.push_back(x[temp_cnt]);
             };
-            cnt = jump_cnt;
-            or_context = 0;
-            is_mult = 0;
+            if (searched[cnt] == ']') {
+              cnt = bf_or_cnt;
+              idx_condition = 0;
+            };
           } else {
             if (cnt == conditions_idx) {
-              return {{{0, 0}, {{0, ""}}}};
-            } else {
-              idx_condition += 1;
+              if (!alrd_or_found) {
+                break;
+              } else {
+                cnt = jump_cnt;
+                or_context = 0;
+                is_mult = 0;
+                n2 = n2_ref;
+              };
             };
           };
           cur_searched = "";
@@ -1029,9 +1046,11 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
         cur_x.push_back(x[temp_cnt]);
       };
       idx_condition = 0;
+      alrd_or_found = 0;
       is_mult = 0;
       conditions_idxv2 = {};
       temp_cnt = cnt + 1;
+      bf_or_cnt = temp_cnt;
       or_context = 1;
       ref_mult = 1;
       while (1) {
@@ -1062,9 +1081,10 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
            };
         } else {
           if (searched[temp_cnt + 1] == '-') {
-            temp_cnt += 2;
+            temp_cnt += 1;
+          } else {
+            conditions_idxv2.push_back(temp_cnt);
           };
-          conditions_idxv2.push_back(temp_cnt);
         };
         temp_cnt += 1;
       };
@@ -1099,7 +1119,14 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
             temp_cnt += 1;
           } else {
             is_mult = 1;
+            if (searched[temp_cnt] == '+') {
+              temp_cnt += 1;
+              is_greedy1 = 1;
+            } else {
+              is_greedy1 = 0;
+            };
             ref_mult = int(searched[temp_cnt]) - 48;
+            temp_cnt += 1;
             while (searched[temp_cnt] != '}') {
               ref_mult *= 10;
               ref_mult += (int(searched[temp_cnt]) - 48);
@@ -1120,15 +1147,23 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
       } else {
         alrd_or_cxt = 1;
       };
-      if (cnt < n & !alrd_or_cxt) {
-        if (!or_context & searched[cnt] != '{' & !alrd_or_cxt) {
-          if (searched[cnt - 2] == '{') {
-            while (searched[cnt] != '}') {
+      if (!alrd_or_cxt) {
+        if (!or_context) {
+          if (cnt < n) {
+            if (searched[cnt] == '-') {
+              cnt += 1;
+              cur_searched.push_back('-');
               cur_searched.push_back(searched[cnt]);
               cnt += 1;
             };
-            cur_searched.push_back('}');
-            cnt += 1;
+            if (searched[cnt] == '{') {
+              while (searched[cnt] != '}') {
+                cur_searched.push_back(searched[cnt]);
+                cnt += 1;
+              };
+              cur_searched.push_back('}');
+              cnt += 1;
+            };
           };
           cur_x = "";
           for (temp_cnt = rtn_lst_cnt + 1; temp_cnt < n2; ++temp_cnt) {
@@ -1143,7 +1178,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid2sub(std::
             rtn_lst_cnt += cur_str.length();
             cur_searched = "";
           } else {
-            return {{{0, 0}, {{0, ""}}}};
+            break;  
           };
         };
       };
