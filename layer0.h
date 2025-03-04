@@ -955,3 +955,17 @@ template <typename T> std::vector<T> sort_ascout(const std::vector<T> &x) {
 };
 
 
+template <typename T, typename T2> std::vector<unsigned int> grep(const std::vector<T> &source, const T2 &ptrn) {
+  std::vector<unsigned int> rtn;
+  int i = 0;
+  for (typename std::vector<T>::const_iterator it = source.begin(); it != source.end(); ++it) {
+    if (*it == ptrn) {
+      rtn.push_back(i);
+    };
+    i += 1;
+  };
+  if (rtn.size() == 0) {
+    rtn = {-1};
+  };
+  return rtn;
+};
