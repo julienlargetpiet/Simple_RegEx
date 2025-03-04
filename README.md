@@ -226,4 +226,31 @@ std::cout << rtn_str << "\n";
 aaaaaaaaaaa_aaa
 ```
 
+```
+std::string inpt_str = "Le radiateur fonctionne bien.";
+std::string searched = "[A-Z a-z][A-Z{+1}a-z{+1} {+1}]{?bien}[A-Z{0}]{+1}";
+
+std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<int>, std::map<bool, std::string>>::iterator out_it = out_mp.begin();
+std::vector<int> idx_v = out_it->first;
+std::map<bool, std::string>::iterator rslt_mp = out_it->second.begin();
+std::string rtn_str = rslt_mp->second;
+bool is_found = rslt_mp->first;
+if (is_found) {
+  std::cout << idx_v[0] << "\n";
+  std::cout << idx_v[1] << "\n";
+  std::cout << is_found << "\n";
+  std::cout << rtn_str << "\n";
+} else {
+  std::cout << "not found\n";
+};
+```
+
+```
+0
+28
+1
+Le radiateur fonctionne bien.
+```
+
 
