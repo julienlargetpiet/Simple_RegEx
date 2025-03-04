@@ -932,3 +932,26 @@ std::vector<std::vector<unsigned int>> Parser_tokenizer_full(std::string &x, cha
 };
 
 
+template <typename T> std::vector<T> sort_ascout(const std::vector<T> &x) {
+  std::vector<T> rtn = x;
+  const unsigned int n = x.size();
+  int i = 1;
+  T ref;
+  while (i < n) {
+    if (rtn[i] < rtn[i - 1]) {
+      ref = rtn[i];
+      rtn[i] = rtn[i - 1];
+      rtn[i - 1] = ref;
+      if (i > 1) {
+        i -= 1;
+      } else {
+        i += 1;
+      };
+    } else {
+      i += 1;
+    };
+  };
+  return rtn;
+};
+
+
