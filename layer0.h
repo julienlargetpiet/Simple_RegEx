@@ -954,18 +954,13 @@ template <typename T> std::vector<T> sort_ascout(const std::vector<T> &x) {
   return rtn;
 };
 
-
-template <typename T, typename T2> std::vector<unsigned int> grep(const std::vector<T> &source, const T2 &ptrn) {
-  std::vector<unsigned int> rtn;
-  int i = 0;
-  for (typename std::vector<T>::const_iterator it = source.begin(); it != source.end(); ++it) {
-    if (*it == ptrn) {
-      rtn.push_back(i);
+template <typename T, typename T2> unsigned int match(const std::vector<T> &source, const T2 &ptrn) {
+  int cnt = 0;
+  for (typename std::vector<T>::const_iterator i = source.begin(); i != source.end(); ++i) {
+    if (*i == ptrn) {
+      return cnt;
     };
-    i += 1;
+    cnt += 1;
   };
-  if (rtn.size() == 0) {
-    rtn = {-1};
-  };
-  return rtn;
+  return -1;
 };
