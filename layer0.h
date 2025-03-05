@@ -964,3 +964,37 @@ template <typename T, typename T2> unsigned int match(const std::vector<T> &sour
   };
   return -1;
 };
+
+bool is_intricated (unsigned int &idx, std::vector<unsigned int> &tkn_v) {
+  std::vector<int> alrd_tkn = {};
+  unsigned int i;
+  unsigned int i2;
+  unsigned int cur_tkn;
+  if (idx == 0) {
+    return 0;
+  };
+  for (i = 0; i < idx + 1; ++i) {
+    alrd_tkn.push_back(tkn_v[i]);
+  };
+  i = 0;
+  const unsigned int n2 = alrd_tkn.size();
+  while (i + 1 < n2) {
+    if (alrd_tkn[i] != -1) {
+      cur_tkn = alrd_tkn[i];
+      i2 = i + 1;
+      while (1) {
+        if (i2 == n2) {
+          return 1;
+        } else if (cur_tkn == alrd_tkn[i2]) {
+          alrd_tkn[i2] = -1;
+          break;
+        };
+        i2 += 1;
+      };
+    };
+    i += 1;
+  };
+  return 0;
+};
+
+
