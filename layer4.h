@@ -81,7 +81,6 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_search(std::string
       };
     };
   };
-  std::cout << "oui0\n";
   std::map<std::vector<std::vector<unsigned int>>, std::vector<std::vector<std::string>>> bgn_mp = regex_findr_bgn_mid(searched, cur_x);
   std::map<std::vector<std::vector<unsigned int>>, std::vector<std::vector<std::string>>>::iterator bgn_it = bgn_mp.begin();
   std::vector<std::vector<std::string>> hmn_str_idxv = bgn_it->second;
@@ -95,7 +94,6 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_search(std::string
   rtn_lst_cnt = hmn_idxv[0][0];
   n_hmn = hmn_idxv.size();
   cur_x = "";
-  std::cout << "oui\n";
   while (1) {
     if (searched[cnt] == '{' & searched[cnt - 1] != '\\') {
       cnt += 1;
