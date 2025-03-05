@@ -27,7 +27,7 @@ The or context repetition prevails the element repetition, such as its break pat
 
 ## Usage
 
-`regex_findrmid(std::string &searched, std::string &x)`
+`regex_search(std::string &searched, std::string &x)`
 
 - searched is the RegEx expression
 - x is the string to search in
@@ -37,7 +37,7 @@ The or context repetition prevails the element repetition, such as its break pat
 ```
 std::string inpt_str = "aouppplchdcpdeudmePpuu";
 std::string searched = "u{0}up{3}lchdy{+0}c{+0}";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_search(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -57,7 +57,7 @@ ouppplchdcp
 ```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[u{1}p{2}]{+1}ii[a-em]";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_search(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -77,7 +77,7 @@ ppppiim
 ```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "e{+1}p{2}";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_search(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -97,7 +97,7 @@ eeepp
 ```
 std::string inpt_str = "uouuupeieeeppppiimi";
 std::string searched = "[a-ia-z]{+1}";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_search(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -117,7 +117,7 @@ eieee
 ```
 std::string inpt_str = "aaaouppplchdcpdedmePp";
 std::string searched = "[lmpu]{0}up{3}lchdy{+0}p{1}";
-std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<unsigned int>, std::map<bool, std::string>> outmp = regex_search(searched, inpt_str);
 std::map<std::vector<unsigned int>, std::map<bool, std::string>>::iterator it = outmp.begin();
 std::vector<unsigned int> vec1 = it->first;
 std::map<bool, std::string>::iterator it2b = it->second.begin();
@@ -141,7 +141,7 @@ Break patterns are used after a set of elements to significate their greedyness 
 ```
 std::string inpt_str = "uuppplchhdcpdedmepp";
 std::string searched = "[u{1}]{2}p{3}[lpm]{?p{3}}chh{?mepp}d{?mepp}";
-std::map<std::vector<int<, std::map<bool, std::string<< outmp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<int<, std::map<bool, std::string<< outmp = regex_search(searched, inpt_str);
 std::map<std::vector<int<, std::map<bool, std::string<<::iterator it = outmp.begin();
 std::vector<int< vec1 = it-<first;
 std::map<bool, std::string<::iterator it2b = it-<second.begin();
@@ -161,7 +161,7 @@ std::cout << it2b->second << "\n";
 ```
 inpt_str = "uouuupeieeeppppiimiooo";
 searched = "[p]{4}i{?ooo}i[a-zm]";
-outmp = regex_findrmid(searched, x);
+outmp = regex_search(searched, x);
 it = outmp.begin();
 vec1 = it-<first;
 it2b = it-<second.begin();
@@ -181,7 +181,7 @@ it2b->second << "\n";
 ```
 inpt_str = "uuppplchhdcpdedmeppuu uuppplchhdcpdedmeppuuppplchhdcpdedmepp";
 searched = "u{2}p{3}[lpm]{?p{3}}c[o{2}oh]h{?mepp}d{?mepp}[ao]{0}";
-std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_search(searched, inpt_str);
 std::map<std::vector<int>, std::map<bool, std::string>>::iterator out_it = out_mp.begin();
 std::vector<int> idx_v = out_it->first;
 std::map<bool, std::string>::iterator rslt_mp = out_it->second.begin();
@@ -207,7 +207,7 @@ If the first condition is an or context with multiple conditions, make sure to r
 ```
 inpt_str = "Caaaaaaaaaaa_aaasympa où l'on pourrait randonner ?";
 searched = "[a-z{+1}_{+1}]{?sympa}[a-z{+0}_{+0}]{?sympa}";
-std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_search(searched, inpt_str);
 std::map<std::vector<int>, std::map<bool, std::string>>::iterator out_it = out_mp.begin();
 std::vector<int> idx_v = out_it->first;
 std::map<bool, std::string>::iterator rslt_mp = out_it->second.begin();
@@ -230,7 +230,7 @@ aaaaaaaaaaa_aaa
 std::string inpt_str = "Le radiateur fonctionne bien.";
 std::string searched = "[A-Z a-z][A-Z{+1}a-z{+1} {+1}]{?bien}[A-Z{0}]{+1}";
 
-std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_findrmid(searched, inpt_str);
+std::map<std::vector<int>, std::map<bool, std::string>> out_mp = regex_search(searched, inpt_str);
 std::map<std::vector<int>, std::map<bool, std::string>>::iterator out_it = out_mp.begin();
 std::vector<int> idx_v = out_it->first;
 std::map<bool, std::string>::iterator rslt_mp = out_it->second.begin();

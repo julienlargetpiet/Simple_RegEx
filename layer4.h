@@ -1,6 +1,6 @@
 #include "layer3.h"
 
-std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::string &searched, std::string &x) {
+std::map<std::vector<int>, std::map<bool, std::string>> regex_search(std::string &searched, std::string &x) {
   std::string cur_searched = "";
   std::string cur_x = x;
   std::string cur_x_ref;
@@ -408,7 +408,7 @@ std::map<std::vector<int>, std::map<bool, std::string>> regex_findrmid(std::stri
   return {{{(int)rtn_pre_cnt, rtn_lst_cnt}, {{1, rtn_str}}}};
 };
 
-std::map<std::vector<int>, std::vector<std::string>> regex_findr_mid_all(std::string &searched, std::string &x) {
+std::map<std::vector<int>, std::vector<std::string>> regex_search_all(std::string &searched, std::string &x) {
   std::string cur_searched = "";
   std::string cur_x = x;
   std::string cur_x_ref;
